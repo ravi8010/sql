@@ -1,0 +1,1741 @@
+
+SQL> declare
+  2  i number;
+  3  j number;
+  4  sum number;
+  5  begin
+  6  i:=10;
+  7  j:=12;
+  8  dbms_output.put_line(sum);
+  9  end;
+ 10  /
+dbms_output.put_line(sum);
+                        *
+ERROR at line 8:
+ORA-06550: line 8, column 25:
+PLS-00103: Encountered the symbol ")" when expecting one of the following:
+(
+
+
+SQL> declare
+  2  i number;
+  3  j number;
+  4  sum number;
+  5  begin
+  6  i:=10;
+  7  j:=12;
+  8  sum:=i+j;
+  9  dbms_output.put_line(sum);
+ 10  end;
+ 11  /
+dbms_output.put_line(sum);
+                        *
+ERROR at line 9:
+ORA-06550: line 9, column 25:
+PLS-00103: Encountered the symbol ")" when expecting one of the following:
+(
+
+
+SQL> dbms_output.put_line(sum);
+SP2-0734: unknown command beginning "dbms_outpu..." - rest of line ignored.
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  i number;
+  3  j number;
+  4  sum number;
+  5  begin
+  6  i:=10;
+  7  j:=12;
+  8  sum:=i+j;
+  9  dbms_output.put_line(sum);
+ 10* end;
+SQL> /
+dbms_output.put_line(sum);
+                        *
+ERROR at line 9:
+ORA-06550: line 9, column 25:
+PLS-00103: Encountered the symbol ")" when expecting one of the following:
+(
+
+
+SQL> set serveroutput on
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  i number;
+  3  j number;
+  4  sum number;
+  5  begin
+  6  i:=10;
+  7  j:=12;
+  8  sum:=i+j;
+  9  dbms_output.put_line(sum);
+ 10* end;
+SQL> /
+dbms_output.put_line(sum);
+                        *
+ERROR at line 9:
+ORA-06550: line 9, column 25:
+PLS-00103: Encountered the symbol ")" when expecting one of the following:
+(
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  i number;
+  3  j number;
+  4  k number;
+  5  begin
+  6  i:=10;
+  7  j:=12;
+  8  k:=i+j;
+  9  dbms_output.put_line(k);
+ 10* end;
+SQL> /
+22
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  i number;
+  3  j number;
+  4  addition number;
+  5  begin
+  6  i:=10;
+  7  j:=12;
+  8  addition :=i+j;
+  9  dbms_output.put_line(addition);
+ 10* end;
+SQL> /
+22
+
+PL/SQL procedure successfully completed.
+
+SQL> declare
+  2  vcname varchar2(20);
+  3  vcloc varchar2(20);
+  4  begin
+  5  select empl
+  6  /
+select empl
+          *
+ERROR at line 5:
+ORA-06550: line 5, column 12:
+PL/SQL: ORA-00923: FROM keyword not found where expected
+ORA-06550: line 5, column 1:
+PL/SQL: SQL Statement ignored
+ORA-06550: line 5, column 11:
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the
+following:
+;
+
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ---------
+         1 Saurabh              HR                           45
+         4 Himanshu             HR                           77
+         2 Ravi                 HR                           54
+         3 Simran               Marketing                    89
+
+SQL> alter table empl add salary number;
+
+Table altered.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ---------
+    SALARY
+----------
+         1 Saurabh              HR                           45
+
+
+         4 Himanshu             HR                           77
+
+
+         2 Ravi                 HR                           54
+
+
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ---------
+    SALARY
+----------
+         3 Simran               Marketing                    89
+
+
+
+SQL> update empl set salary=salary*1000;
+
+4 rows updated.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ---------
+    SALARY
+----------
+         1 Saurabh              HR                           45
+
+
+         4 Himanshu             HR                           77
+
+
+         2 Ravi                 HR                           54
+
+
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ---------
+    SALARY
+----------
+         3 Simran               Marketing                    89
+
+
+
+SQL> update empl set salary=1000 where empno=1;
+
+1 row updated.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ---------
+    SALARY
+----------
+         1 Saurabh              HR                           45
+      1000
+
+         4 Himanshu             HR                           77
+
+
+         2 Ravi                 HR                           54
+
+
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ---------
+    SALARY
+----------
+         3 Simran               Marketing                    89
+
+
+
+SQL> alter table empl;
+alter table empl
+               *
+ERROR at line 1:
+ORA-02210: no options specified for ALTER TABLE
+
+
+SQL> alter table empl;
+alter table empl
+               *
+ERROR at line 1:
+ORA-02210: no options specified for ALTER TABLE
+
+
+SQL> alter table empl
+  2  drop column salary
+  3  ;
+
+Table altered.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ---------
+         1 Saurabh              HR                           45
+         4 Himanshu             HR                           77
+         2 Ravi                 HR                           54
+         3 Simran               Marketing                    89
+
+SQL> select * from empl1;
+select * from empl1
+              *
+ERROR at line 1:
+ORA-00942: table or view does not exist
+
+
+SQL> alter table empl add salary number;
+
+Table altered.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ---------
+    SALARY
+----------
+         1 Saurabh              HR                           45
+
+
+         4 Himanshu             HR                           77
+
+
+         2 Ravi                 HR                           54
+
+
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ---------
+    SALARY
+----------
+         3 Simran               Marketing                    89
+
+
+
+SQL> alter table empl
+  2  drop column salary
+  3  ;
+
+Table altered.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ---------
+         1 Saurabh              HR                           45
+         4 Himanshu             HR                           77
+         2 Ravi                 HR                           54
+         3 Simran               Marketing                    89
+
+SQL> update empl
+  2  set dob='05/02/1996';
+set dob='05/02/1996'
+        *
+ERROR at line 2:
+ORA-01843: not a valid month
+
+
+SQL> alter session set nls_date_format='dd/mm/yyyy';
+
+Session altered.
+
+SQL> update empl
+  2  set dob='05/02/1996' where empno<3;
+
+2 rows updated.
+
+SQL> set dob='05/02/1996' where empno>=3;
+SP2-0735: unknown SET option beginning "dob='05/02..."
+SQL> set dob='05/02/1996' where empno>3;
+SP2-0735: unknown SET option beginning "dob='05/02..."
+SQL> update empl
+  2  set dob='05/02/1996' where empno>3;
+
+1 row updated.
+
+SQL> update empl
+  2  set dob='30/03/1990' where empno=3;
+
+1 row updated.
+
+SQL> update empl
+  2  set dob='17/05/1996' where empno>3;
+
+1 row updated.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+         1 Saurabh              HR                           45 05/02/1996
+         4 Himanshu             HR                           77 17/05/1996
+         2 Ravi                 HR                           54 05/02/1996
+         3 Simran               Marketing                    89 30/03/1990
+
+SQL> alter table empl add salary number;
+
+Table altered.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY
+----------
+         1 Saurabh              HR                           45 05/02/1996
+
+
+         4 Himanshu             HR                           77 17/05/1996
+
+
+         2 Ravi                 HR                           54 05/02/1996
+
+
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY
+----------
+         3 Simran               Marketing                    89 30/03/1990
+
+
+
+SQL> alter table empl add phonenumber number;
+
+Table altered.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY PHONENUMBER
+---------- -----------
+         1 Saurabh              HR                           45 05/02/1996
+
+
+         4 Himanshu             HR                           77 17/05/1996
+
+
+         2 Ravi                 HR                           54 05/02/1996
+
+
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY PHONENUMBER
+---------- -----------
+         3 Simran               Marketing                    89 30/03/1990
+
+
+
+SQL> alter table empl add salary number(20);
+alter table empl add salary number(20)
+                     *
+ERROR at line 1:
+ORA-01430: column being added already exists in table
+
+
+SQL> alter table empl add salar1 number(20);
+
+Table altered.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY PHONENUMBER     SALAR1
+---------- ----------- ----------
+         1 Saurabh              HR                           45 05/02/1996
+
+
+         4 Himanshu             HR                           77 17/05/1996
+
+
+         2 Ravi                 HR                           54 05/02/1996
+
+
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY PHONENUMBER     SALAR1
+---------- ----------- ----------
+         3 Simran               Marketing                    89 30/03/1990
+
+
+
+SQL> alter table empl drop column salary;
+
+Table altered.
+
+SQL> alter table empl drop column salar1;
+
+Table altered.
+
+SQL> alter table empl drop column phonenumber;
+
+Table altered.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+         1 Saurabh              HR                           45 05/02/1996
+         4 Himanshu             HR                           77 17/05/1996
+         2 Ravi                 HR                           54 05/02/1996
+         3 Simran               Marketing                    89 30/03/1990
+
+SQL> alter table empl add salary number;
+
+Table altered.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY
+----------
+         1 Saurabh              HR                           45 05/02/1996
+
+
+         4 Himanshu             HR                           77 17/05/1996
+
+
+         2 Ravi                 HR                           54 05/02/1996
+
+
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY
+----------
+         3 Simran               Marketing                    89 30/03/1990
+
+
+
+SQL> update empl set salary=1000 where empno=1;
+
+1 row updated.
+
+SQL> update empl set salary=4000 where empno=2;
+
+1 row updated.
+
+SQL> update empl set salary=5000 where empno=3;
+
+1 row updated.
+
+SQL> update empl set salary=7000 where empno=4;
+
+1 row updated.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY
+----------
+         1 Saurabh              HR                           45 05/02/1996
+      1000
+
+         4 Himanshu             HR                           77 17/05/1996
+      7000
+
+         2 Ravi                 HR                           54 05/02/1996
+      4000
+
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY
+----------
+         3 Simran               Marketing                    89 30/03/1990
+      5000
+
+
+SQL> update empl set salary=1000 where empno=3;
+
+1 row updated.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY
+----------
+         1 Saurabh              HR                           45 05/02/1996
+      1000
+
+         4 Himanshu             HR                           77 17/05/1996
+      7000
+
+         2 Ravi                 HR                           54 05/02/1996
+      4000
+
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY
+----------
+         3 Simran               Marketing                    89 30/03/1990
+      1000
+
+
+SQL> declare
+  2  vcName varchar2(20);
+  3  vcSalary number(5);
+  4  begin
+  5  select name,salary into vcName,vcSalary from empl where salary=1000;
+  6  dbms_output.put_line('Employee name:'|| vcName);
+  7  dbms_output.put_line('Employee salary:'|| vcSalary);
+  8  end;
+  9  /
+declare
+*
+ERROR at line 1:
+ORA-01422: exact fetch returns more than requested number of rows
+ORA-06512: at line 5
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  vcName varchar2(20);
+  3  begin
+  4  select nameinto vcName from empl where salary=1000;
+  5  dbms_output.put_line('Employee name:'|| vcName);
+  6* end;
+SQL> /
+select nameinto vcName from empl where salary=1000;
+       *
+ERROR at line 4:
+ORA-06550: line 4, column 8:
+PL/SQL: ORA-00904: "NAMEINTO": invalid identifier
+ORA-06550: line 4, column 1:
+PL/SQL: SQL Statement ignored
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  vcName varchar2(20);
+  3  begin
+  4  select name into vcName from empl where salary=1000;
+  5  dbms_output.put_line('Employee name:'|| vcName);
+  6* end;
+SQL> /
+declare
+*
+ERROR at line 1:
+ORA-01422: exact fetch returns more than requested number of rows
+ORA-06512: at line 4
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  vcName varchar2(20);
+  3  begin
+  4  select name into vcName from empl where empno=1000;
+  5  dbms_output.put_line('Employee name:'|| vcName);
+  6* end;
+SQL> /
+declare
+*
+ERROR at line 1:
+ORA-01403: no data found
+ORA-06512: at line 4
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  vcName varchar2(20);
+  3  vcSalary number(5);
+  4  begin
+  5  select name into vcName from empl where empno=1;
+  6  dbms_output.put_line('Employee name:'|| vcName);
+  7  dbms_output.put_line('Employee Salary:'|| vcSalary);
+  8* end;
+SQL> /
+Employee name:Saurabh
+Employee Salary:
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from empl;
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY
+----------
+         1 Saurabh              HR                           45 05/02/1996
+      1000
+
+         4 Himanshu             HR                           77 17/05/1996
+      7000
+
+         2 Ravi                 HR                           54 05/02/1996
+      4000
+
+
+     EMPNO NAME                 DEPTNAME                  MARKS DOB
+---------- -------------------- -------------------- ---------- ----------
+    SALARY
+----------
+         3 Simran               Marketing                    89 30/03/1990
+      1000
+
+
+SQL> create table emplo(empno number(3), name varChar2(10), deptname varchar2(10), marks number(3), dob date, salary number(7));
+
+Table created.
+
+SQL> select * from emplo;
+
+no rows selected
+
+SQL> insert into emplo values(1,'Saurabh','HR',88,'05/02/1996',30000);
+
+1 row created.
+
+SQL> insert into emplo values(2,'Ravi','HR',87,'21/07/1996',20000);
+
+1 row created.
+
+SQL> insert into emplo values(3,'Simran','Manager',67,'31/05/1996',15000);
+
+1 row created.
+
+SQL> insert into emplo values(4,'Prashant','Marketing',75,'22/06/1997',35000);
+
+1 row created.
+
+SQL> insert into emplo values(5,'Himanshu','Manager',93,'11/05/1999',22000);
+
+1 row created.
+
+SQL> select * from emplo;
+
+     EMPNO NAME       DEPTNAME        MARKS DOB            SALARY
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Saurabh    HR                 88 05/02/1996      30000
+         2 Ravi       HR                 87 21/07/1996      20000
+         3 Simran     Manager            67 31/05/1996      15000
+         4 Prashant   Marketing          75 22/06/1997      35000
+         5 Himanshu   Manager            93 11/05/1999      22000
+
+SQL> declare
+  2  cname varchar2(20);
+  3  csalary emplo.salary%type;
+  4  begin
+  5  select name,salary into cname, csalary from emplo where marks>90;
+  6  dbms_output.put_line('Employee name:' || cname);
+  7  dbms_output.put_line('Employee salary:' || csalary);
+  8  end;
+  9  /
+Employee name:Himanshu
+Employee salary:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a number(3);
+  3  b number(3);
+  4  total_salary number(3);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  select salary into b from emplo where empno=4;
+  8  total_salary:=a+b;
+  9  dbms_output.put_line('Total salary is:' || total_salary);
+ 10* end;
+SQL> /
+declare
+*
+ERROR at line 1:
+ORA-06502: PL/SQL: numeric or value error: number precision too large
+ORA-06512: at line 6
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a number(3);
+  3  b number(3);
+  4  total_salary number(3);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  select salary into b from emplo where empno=4;
+  8  total_salary:=a+b;
+  9  dbms_output.put_line('Total salary is:' || total_salary);
+ 10* end;
+SQL> /
+declare
+*
+ERROR at line 1:
+ORA-06502: PL/SQL: numeric or value error: number precision too large
+ORA-06512: at line 6
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a number(2);
+  3  b number(2);
+  4  total_salary number(2);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  select salary into b from emplo where empno=4;
+  8  total_salary:=a+b;
+  9  dbms_output.put_line('Total salary is:' || total_salary);
+ 10* end;
+SQL> /
+declare
+*
+ERROR at line 1:
+ORA-06502: PL/SQL: numeric or value error: number precision too large
+ORA-06512: at line 6
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a number(2);
+  3  b number(2);
+  4  total_salary number(2);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  select salary into b from emplo where empno=4;
+  8  total_salary:=a+b;
+  9  dbms_output.put_line('Total salary is:' || total_salary);
+ 10* end;
+SQL> /
+declare
+*
+ERROR at line 1:
+ORA-06502: PL/SQL: numeric or value error: number precision too large
+ORA-06512: at line 6
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a number(10);
+  3  b number(10);
+  4  total_salary number(10);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  select salary into b from emplo where empno=4;
+  8  total_salary:=a+b;
+  9  dbms_output.put_line('Total salary is:' || total_salary);
+ 10* end;
+SQL> /
+Total salary is:55000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a number(10);
+  3  increased_salary number(10);
+  4  begin
+  5  select salary into a from emplo where empno=2;
+  6  increased_salary:=a+(a*(10/100));
+  7  dbms_output.put_line('Increased salary is:' || increased_salary);
+  8* end;
+SQL> /
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a number(10);
+  3  b number(10);
+  4  increased_salary number(10);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  b=a*0.1;
+  8  increased_salary:=a+b;
+  9  dbms_output.put_line('Increased salary is:' || increased_salary);
+ 10* end;
+SQL> /
+b=a*0.1;
+ *
+ERROR at line 7:
+ORA-06550: line 7, column 2:
+PLS-00103: Encountered the symbol "=" when expecting one of the following:
+:= . ( @ % ;
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a number(10);
+  3  b number(10);
+  4  increased_salary number(10);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  b:=a*0.1;
+  8  increased_salary:=a+b;
+  9  dbms_output.put_line('Increased salary is:' || increased_salary);
+ 10* end;
+SQL> /
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a number(10);
+  3  b float(10);
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  b:=a*0.1;
+  8  increased_salary:=a+b;
+  9  dbms_output.put_line('Increased salary is:' || increased_salary);
+ 10* end;
+SQL> /
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a float(10);
+  3  b float(10);
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  b:=a*0.1;
+  8  increased_salary:=a+b;
+  9  dbms_output.put_line('Increased salary is:' || increased_salary);
+ 10* end;
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a float(10);
+  3  b float(10);
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  b:=a*0.1;
+  8  increased_salary:=a+b;
+  9  dbms_output.put_line('Increased salary is:' || increased_salary);
+ 10* end;
+SQL> /
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a float(10);
+  3  b float(10);
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  b:=a*0.1;
+  8  increased_salary:=a+b;
+  9  dbms_output.put_line('Increased salary is:' || increased_salary);
+ 10* end;
+SQL> /
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> select salary from emplo where empno=2;
+
+    SALARY
+----------
+     20000
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1* select salary from emplo where empno=2
+SQL> declare
+  2  a emplo%ROWTYPE;
+  3  increased_salary float(10);
+  4  begin
+  5  select salary into a.b from emplo where empno=2;
+  6  a.c:=a.b*0.1;
+  7  increased_salary:=a.b+a.c;
+  8  dbms_output.put_line('Increased salary is:'|| increased_salary);
+  9  end;
+ 10  /
+select salary into a.b from emplo where empno=2;
+                     *
+ERROR at line 5:
+ORA-06550: line 5, column 22:
+PLS-00302: component 'B' must be declared
+ORA-06550: line 5, column 24:
+PL/SQL: ORA-00904: : invalid identifier
+ORA-06550: line 5, column 1:
+PL/SQL: SQL Statement ignored
+ORA-06550: line 6, column 3:
+PLS-00302: component 'C' must be declared
+ORA-06550: line 6, column 1:
+PL/SQL: Statement ignored
+ORA-06550: line 7, column 21:
+PLS-00302: component 'B' must be declared
+ORA-06550: line 7, column 1:
+PL/SQL: Statement ignored
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  b.salary:=a.salary*0.1;
+  8  increased_salary:=a.salary+b.salary;
+  9  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 10* end;
+SQL> /
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a from emplo where empno=2;
+  7  b:=a*0.1;
+  8  increased_salary:=a+b;
+  9  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 10* end;
+SQL> /
+select salary into a from emplo where empno=2;
+                     *
+ERROR at line 6:
+ORA-06550: line 6, column 22:
+PL/SQL: ORA-00913: too many values
+ORA-06550: line 6, column 1:
+PL/SQL: SQL Statement ignored
+ORA-06550: line 7, column 4:
+PLS-00306: wrong number or types of arguments in call to '*'
+ORA-06550: line 7, column 1:
+PL/SQL: Statement ignored
+ORA-06550: line 8, column 19:
+PLS-00306: wrong number or types of arguments in call to '+'
+ORA-06550: line 8, column 1:
+PL/SQL: Statement ignored
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  b.salary:=a.salary*0.1;
+  8  increased_salary:=a.salary+b.salary;
+  9  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 10* end;
+SQL> /
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 12* end;
+SQL> /
+dbms_output.put_line(a);
+*
+ERROR at line 8:
+ORA-06550: line 8, column 1:
+PLS-00306: wrong number or types of arguments in call to 'PUT_LINE'
+ORA-06550: line 8, column 1:
+PL/SQL: Statement ignored
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 12* end;
+SQL> /
+20000Ravi
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 12* end;
+SQL> /
+20000 name: Ravi
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 12* end;
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  insert into emplo values(12,'krishan','hr','21/04/1654',14000);
+ 12  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 13* end;
+SQL> /
+insert into emplo values(12,'krishan','hr','21/04/1654',14000);
+            *
+ERROR at line 11:
+ORA-06550: line 11, column 13:
+PL/SQL: ORA-00947: not enough values
+ORA-06550: line 11, column 1:
+PL/SQL: SQL Statement ignored
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  insert into emplo values(12,'krishan','hr',25,'21/04/1654',14000);
+ 12  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 13* end;
+SQL> /
+20000 name: Ravi
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  insert into emplo values(12,'krishan','hr',25,'21/04/1654',14000);
+ 12  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 13* end;
+SQL> /
+20000 name: Ravi
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from emplo
+  2  ;
+
+     EMPNO NAME       DEPTNAME        MARKS DOB            SALARY
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Saurabh    HR                 88 05/02/1996      30000
+         2 Ravi       HR                 87 21/07/1996      20000
+         3 Simran     Manager            67 31/05/1996      15000
+         4 Prashant   Marketing          75 22/06/1997      35000
+         5 Himanshu   Manager            93 11/05/1999      22000
+        12 krishan    hr                 25 21/04/1654      14000
+        12 krishan    hr                 25 21/04/1654      14000
+
+7 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  update emplo set salary=increased_salary where empno=2;
+ 12  insert into emplo values(12,'krishan','hr',25,'21/04/1654',14000);
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+20000 name: Ravi
+Increased salary is:22000
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  update emplo set salary=increased_salary where empno=2;
+ 12  insert into emplo values(12,'krishan','hr',25,'21/04/1654',14000);
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> select * from emplo
+  2  ;
+
+     EMPNO NAME       DEPTNAME        MARKS DOB            SALARY
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Saurabh    HR                 88 05/02/1996      30000
+         2 Ravi       HR                 87 21/07/1996      22000
+         3 Simran     Manager            67 31/05/1996      15000
+         4 Prashant   Marketing          75 22/06/1997      35000
+         5 Himanshu   Manager            93 11/05/1999      22000
+        12 krishan    hr                 25 21/04/1654      14000
+        12 krishan    hr                 25 21/04/1654      14000
+        12 krishan    hr                 25 21/04/1654      14000
+
+8 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  update emplo set salary=increased_salary where empno=2;
+ 12  delete from emplo where empno=12;
+ 13  insert into emplo values(12,'krishan','hr',25,'21/04/1654',14000);
+ 14  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 15* end;
+SQL> /
+22000 name: Ravi
+Increased salary is:24200
+
+PL/SQL procedure successfully completed.
+
+SQL> select * from emplo\
+  2  /
+select * from emplo\
+                   *
+ERROR at line 1:
+ORA-00911: invalid character
+
+
+SQL> select * from emplo;
+
+     EMPNO NAME       DEPTNAME        MARKS DOB            SALARY
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Saurabh    HR                 88 05/02/1996      30000
+         2 Ravi       HR                 87 21/07/1996      24200
+         3 Simran     Manager            67 31/05/1996      15000
+         4 Prashant   Marketing          75 22/06/1997      35000
+         5 Himanshu   Manager            93 11/05/1999      22000
+        12 krishan    hr                 25 21/04/1654      14000
+
+6 rows selected.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  /*krishan narayan thakur;
+ 12  delete from emplo where empno=12;
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+end;
+   *
+ERROR at line 14:
+ORA-06550: line 14, column 4:
+PLS-00111: end-of-file in comment
+ORA-06550: line 14, column 4:
+PLS-00103: Encountered the symbol "end-of-file" when expecting one of the
+following:
+( begin case declare end exception exit for goto if loop mod
+null pragma raise return select update while with
+<an identifier> <a double-quoted
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  /*krishan narayan thakur;*/
+ 12  delete from emplo where empno=12;
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+24200 name: Ravi
+Increased salary is:26620
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  /*dbms_output.put_line('Increased salary is:'|| increased_salary);*/
+ 13* end;
+SQL> /
+24200 name: Ravi
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  alter table emplo modify name ename varchar2;
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+alter table emplo modify name ename varchar2;
+*
+ERROR at line 12:
+ORA-06550: line 12, column 1:
+PLS-00103: Encountered the symbol "ALTER" when expecting one of the following:
+( begin case declare end exception exit for goto if loop mod
+null pragma raise return select update while with
+<an identifier> <a double-quoted delimited-identifier>
+<a bind variable> << continue close current delete fetch lock
+insert open rollback savepoint set sql execute commit forall
+merge pipe purge
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  ALTER TABLE emplo MODIFY name varchar(50) unique;
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+ALTER TABLE emplo MODIFY name varchar(50) unique;
+*
+ERROR at line 12:
+ORA-06550: line 12, column 1:
+PLS-00103: Encountered the symbol "ALTER" when expecting one of the following:
+( begin case declare end exception exit for goto if loop mod
+null pragma raise return select update while with
+<an identifier> <a double-quoted delimited-identifier>
+<a bind variable> << continue close current delete fetch lock
+insert open rollback savepoint set sql execute commit forall
+merge pipe purge
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  ALTER TABLE emplo MODIFY name varchar(50);
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+ALTER TABLE emplo MODIFY name varchar(50);
+*
+ERROR at line 12:
+ORA-06550: line 12, column 1:
+PLS-00103: Encountered the symbol "ALTER" when expecting one of the following:
+( begin case declare end exception exit for goto if loop mod
+null pragma raise return select update while with
+<an identifier> <a double-quoted delimited-identifier>
+<a bind variable> << continue close current delete fetch lock
+insert open rollback savepoint set sql execute commit forall
+merge pipe purge
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  ALTER TABLE emplo (MODIFY name varchar(50));
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+ALTER TABLE emplo (MODIFY name varchar(50));
+*
+ERROR at line 12:
+ORA-06550: line 12, column 1:
+PLS-00103: Encountered the symbol "ALTER" when expecting one of the following:
+( begin case declare end exception exit for goto if loop mod
+null pragma raise return select update while with
+<an identifier> <a double-quoted delimited-identifier>
+<a bind variable> << continue close current delete fetch lock
+insert open rollback savepoint set sql execute commit forall
+merge pipe purge
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  ALTER TABLE emplo MODIFY name varchar;
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+ALTER TABLE emplo MODIFY name varchar;
+*
+ERROR at line 12:
+ORA-06550: line 12, column 1:
+PLS-00103: Encountered the symbol "ALTER" when expecting one of the following:
+( begin case declare end exception exit for goto if loop mod
+null pragma raise return select update while with
+<an identifier> <a double-quoted delimited-identifier>
+<a bind variable> << continue close current delete fetch lock
+insert open rollback savepoint set sql execute commit forall
+merge pipe purge
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  ALTER TABLE emplo RENAME COLUMN name TO ename;
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+ALTER TABLE emplo RENAME COLUMN name TO ename;
+*
+ERROR at line 12:
+ORA-06550: line 12, column 1:
+PLS-00103: Encountered the symbol "ALTER" when expecting one of the following:
+( begin case declare end exception exit for goto if loop mod
+null pragma raise return select update while with
+<an identifier> <a double-quoted delimited-identifier>
+<a bind variable> << continue close current delete fetch lock
+insert open rollback savepoint set sql execute commit forall
+merge pipe purge
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  /*ALTER TABLE emplo RENAME COLUMN name TO ename;*/
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+24200 name: Ravi
+Increased salary is:26620
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  /*ALTER TABLE emplo RENAME COLUMN name TO ename;*/
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+24200 name: Ravi
+Increased salary is:26620
+
+PL/SQL procedure successfully completed.
+
+SQL> ALTER TABLE emplo RENAME COLUMN name TO ename;
+
+Table altered.
+
+SQL> select * from emplo
+  2  ;
+
+     EMPNO ENAME      DEPTNAME        MARKS DOB            SALARY
+---------- ---------- ---------- ---------- ---------- ----------
+         1 Saurabh    HR                 88 05/02/1996      30000
+         2 Ravi       HR                 87 21/07/1996      24200
+         3 Simran     Manager            67 31/05/1996      15000
+         4 Prashant   Marketing          75 22/06/1997      35000
+         5 Himanshu   Manager            93 11/05/1999      22000
+
+SQL> alter table emplo modify name varchar(50);
+alter table emplo modify name varchar(50)
+                         *
+ERROR at line 1:
+ORA-00904: "NAME": invalid identifier
+
+
+SQL> alter table emplo modify ename varchar(50);
+
+Table altered.
+
+SQL> alter table emplo modify ename varchar(50) unique;
+
+Table altered.
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.name);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  update emplo set ename = 'Ravi' where empno=3;
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+dbms_output.put_line(a.salary||' name: '|| a.name);
+                                             *
+ERROR at line 8:
+ORA-06550: line 8, column 46:
+PLS-00302: component 'NAME' must be declared
+ORA-06550: line 8, column 1:
+PL/SQL: Statement ignored
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.ename);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  update emplo set ename = 'Ravi' where empno=3;
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+24200 name: Ravi
+declare
+*
+ERROR at line 1:
+ORA-00001: unique constraint (SYSTEM.SYS_C007849) violated
+ORA-06512: at line 12
+
+
+SQL> ed
+Wrote file afiedt.buf
+
+  1  declare
+  2  a emplo%ROWTYPE;
+  3  b emplo%ROWTYPE;
+  4  increased_salary float(10);
+  5  begin
+  6  select salary into a.salary from emplo where empno=2;
+  7  select * into a from emplo where empno=2;
+  8  dbms_output.put_line(a.salary||' name: '|| a.ename);
+  9  b.salary:=a.salary*0.1;
+ 10  increased_salary:=a.salary+b.salary;
+ 11  delete from emplo where empno=12;
+ 12  update emplo set ename = 'shaavi' where empno=3;
+ 13  dbms_output.put_line('Increased salary is:'|| increased_salary);
+ 14* end;
+SQL> /
+24200 name: Ravi
+Increased salary is:26620
+
+PL/SQL procedure successfully completed.
+
+SQL> ed
+Wrote file afiedt.buf
